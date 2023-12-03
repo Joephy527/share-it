@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 import PromptCard from "./PromptCard";
+
+export const dynamic = "force-dynamic";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -27,7 +30,7 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt", { cache: "no-store" });
+    const response = await fetch("/api/prompt");
     const data = await response.json();
 
     setAllPosts(data);
