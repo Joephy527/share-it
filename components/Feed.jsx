@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 import PromptCard from "./PromptCard";
 
@@ -19,6 +20,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
+  const { data: session } = useSession();
   const [allPosts, setAllPosts] = useState([]);
 
   // Search states
@@ -34,7 +36,11 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
+    if (session?.user.id) {
+      fetchPosts();
+    } else {
+      fetchPosts();
+    }
   }, []);
 
   const filterPrompts = (searchtext) => {
@@ -82,25 +88,12 @@ const Feed = () => {
 
       {/* All Prompts */}
       {searchText ? (
-        <div className="mt-16 prompt_layout">
-          {searchedResults.map((post) => (
-            <PromptCard
-              key={post._id}
-              post={post}
-              handleTagClick={handleTagClick}
-            />
-          ))}
-        </div>
+        <PromptCardList
+          data={searchedResults}
+          handleTagClick={handleTagClick}
+        />
       ) : (
-        <div className="mt-16 prompt_layout">
-          {allPosts.map((post) => (
-            <PromptCard
-              key={post._id}
-              post={post}
-              handleTagClick={handleTagClick}
-            />
-          ))}
-        </div>
+        <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
     </section>
   );
