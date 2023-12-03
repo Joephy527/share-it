@@ -1,11 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 
 import PromptCard from "./PromptCard";
-
-export const dynamic = "force-dynamic";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
