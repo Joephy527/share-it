@@ -82,12 +82,25 @@ const Feed = () => {
 
       {/* All Prompts */}
       {searchText ? (
-        <PromptCardList
-          data={searchedResults}
-          handleTagClick={handleTagClick}
-        />
+        <div className="mt-16 prompt_layout">
+          {searchedResults.map((post) => (
+            <PromptCard
+              key={post._id}
+              post={post}
+              handleTagClick={handleTagClick}
+            />
+          ))}
+        </div>
       ) : (
-        <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
+        <div className="mt-16 prompt_layout">
+          {allPosts.map((post) => (
+            <PromptCard
+              key={post._id}
+              post={post}
+              handleTagClick={handleTagClick}
+            />
+          ))}
+        </div>
       )}
     </section>
   );
