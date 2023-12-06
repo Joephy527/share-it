@@ -3,7 +3,6 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 import Profile from "@components/Profile";
 
@@ -42,7 +41,6 @@ const MyProfile = () => {
         const filteredPosts = myPosts.filter((item) => item._id !== post._id);
 
         setMyPosts(filteredPosts);
-        revalidatePath("/");
       } catch (error) {
         console.log(error);
       }
