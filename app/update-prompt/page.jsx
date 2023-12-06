@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import Form from "@components/Form";
+import { revalidatePath } from "next/cache";
 
 const UpdatePrompt = () => {
   const router = useRouter();
@@ -43,6 +44,7 @@ const UpdatePrompt = () => {
       });
 
       if (response.ok) {
+        revalidatePath("/");
         router.push("/profile");
       }
     } catch (error) {
