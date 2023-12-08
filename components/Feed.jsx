@@ -1,5 +1,4 @@
 "use client";
-import { unstable_noStore as noStore } from "next/cache";
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -21,7 +20,6 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
-  noStore();
   const { data: session } = useSession();
   const [allPosts, setAllPosts] = useState([]);
 
@@ -31,7 +29,7 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
+    const response = await fetch("/api/prompt", { cache: "no-store" });
     const data = await response.json();
 
     setAllPosts(data);
