@@ -1,8 +1,22 @@
-import Feed from "@components/Feed";
+"use client";
 
-export const dynamic = "force-dynamic";
+import Feed from "@components/Feed";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [allPosts, setAllPosts] = useState([]);
+
+  const fetchPosts = async () => {
+    const response = await fetch("/api/prompt");
+    const data = await response.json();
+
+    setAllPosts(data);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
     <section className="w-full flex-center flex-col">
       <h1 className="head_text text-center">
@@ -16,7 +30,7 @@ const Home = () => {
         discover, create and share creative prompts.
       </p>
 
-      <Feed />
+      <Feed allPosts={allPosts} />
     </section>
   );
 };
