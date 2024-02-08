@@ -7,6 +7,8 @@ export const metadata = {
   decription: "Discover & Share AI Prompts",
 };
 
+export const fetchCache = "default-no-store";
+
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
